@@ -10,11 +10,22 @@
   place-items: center;
 
   .modal-content {
-    padding: 1rem;
+    padding: 2rem;
     background: var(--shapes);
     color: var(--text-title);
     width: 600px;
     border-radius: 5px;
+    position: relative;
+    
+    .close-button {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+
+      svg {
+        cursor: pointer;
+      }
+    }
   }
 
   .input-container {
@@ -22,6 +33,7 @@
       margin: 2rem 0 .5rem 0;
       display: block;
       font-size: 1.3rem;
+      line-height: 1.3rem;
     }
 
     input, select {
