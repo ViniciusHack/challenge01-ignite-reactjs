@@ -1,0 +1,27 @@
+
+
+.dropdown {
+  padding: 1rem;
+  background: var(--text-title);
+  color: var(--shapes);
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  border-radius: 5px;
+
+  > div {
+    cursor: pointer;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+
+    &:hover {
+      filter: brightness(0.8);
+    }
+    
+    svg {
+      color: var(--green);
+    }
+  }
+}
