@@ -17,6 +17,7 @@ export interface Folder {
   id: number;
   title: string;
   tasks: Task[];
+  isOpen: boolean;
 }
 
 export function TaskList() {
@@ -35,6 +36,16 @@ export function TaskList() {
     setMousePosition({left, top});
   }
 
+  const handleOpenFolder = (folder: Folder) => {
+    folder.isOpen = !folder.isOpen;
+    const folderIndex = folders.findIndex(folderState => folderState.id === folder.id);
+
+    const cloneFolders = [...folders];
+    cloneFolders.splice(folderIndex, 1, folder);
+    
+    setFolders(cloneFolders)
+  }
+
   const onClickFolder = useCallback(() => {
     setModalType('folder')
     setIsModalOpen(true);
@@ -45,13 +56,14 @@ export function TaskList() {
     const newFolder = {
       id: Math.ceil(Math.random() * (10000 - 1)) + 1,
       title: name,
-      tasks: []
+      tasks: [],
+      isOpen: false
     }
 
     setFolders([...folders, newFolder]);
     toast.success("Pasta criada com sucesso")
 
-  }, [])
+  }, [folders])
 
   function handleCreateNewTask(name: string, folderId: number | null ) {
 
@@ -69,6 +81,7 @@ export function TaskList() {
     }
 
     folder?.tasks.push(task);
+    folder.isOpen = true;
     const folderIndex = folders.findIndex(folderState => folderState.id === folder.id);
     const cloneFolders = [...folders];
 
@@ -137,7 +150,7 @@ export function TaskList() {
       <section className="task-list container" onContextMenu={handleOpenDropdown}>
         <header>
           <h2>Minhas tasks</h2>
-          <div className="input-group" >
+          <div className="button-group" >
             <button onClick={() => {
               setIsModalOpen(true)
               setModalType('folder')
@@ -159,12 +172,12 @@ export function TaskList() {
           <ul>
             {folders.map(folder => (
               <li key={folder.id}>
-                <div className="folder">
+                <div onClick={() => handleOpenFolder(folder)} className="folder">
                   <FiFolder />
                   {folder.title}
                 </div>
                 <ul>
-                {folder.tasks.map(task => (
+                {folder.isOpen && folder.tasks.map(task => (
                   <li key={task.id} className="todo">
                     <div className={task.isComplete ? 'completed' : ''} data-testid="task" >
                       <label className="checkbox-container">

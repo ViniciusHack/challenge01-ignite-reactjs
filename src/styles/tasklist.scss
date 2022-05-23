@@ -18,28 +18,13 @@ section.task-list {
       font-size: 2.25rem;
     }
 
-    .input-group {
+    .button-group {
       display: flex;
-      gap: 0.25rem;
+      gap: .5rem;
       align-items: center;
 
       background: #fff;
       font-size: 16px;
-      
-      input {
-        flex: 1;
-        background: var(--background);
-        border: 0;
-        color: var(--text);
-        padding: 12px 24px;
-        
-        border-radius: 8px;
-        border: 0;
-        
-        &::placeholder {
-          color: var(--text-light)
-        }
-      }
 
       button {
         font-weight: 600;
@@ -48,6 +33,7 @@ section.task-list {
         background: var(--green);
         color: #fff;
         display: flex;
+        gap: .5rem;
         flex-direction: row;
         align-items: center;
 
@@ -156,11 +142,18 @@ section.task-list {
           }
         }
       }
+
+    &:first-of-type {
+      > li + li {
+        padding-top: 2rem;
+      }
+    }
         
       .folder {
         display: flex;
         gap: 14px;
         align-items: center;
+        cursor: pointer;
 
         & + ul {
           padding-left: 1rem;
