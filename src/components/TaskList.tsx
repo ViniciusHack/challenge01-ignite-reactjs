@@ -42,6 +42,9 @@ export function TaskList() {
 
     const cloneFolders = [...folders];
     cloneFolders.splice(folderIndex, 1, folder);
+    if(folder.tasks.length === 0) {
+      toast.info("Ainda não há tarefas associadas a essa pasta")
+    }
     
     setFolders(cloneFolders)
   }
@@ -64,6 +67,10 @@ export function TaskList() {
     toast.success("Pasta criada com sucesso")
 
   }, [folders])
+
+  const handleRemoveFolder = (folderId: number) => {
+    setFolders(folders.filter(folder => folder.id !== folderId))
+  }
 
   function handleCreateNewTask(name: string, folderId: number | null ) {
 
@@ -172,9 +179,14 @@ export function TaskList() {
           <ul>
             {folders.map(folder => (
               <li key={folder.id}>
-                <div onClick={() => handleOpenFolder(folder)} className="folder">
-                  <FiFolder />
-                  {folder.title}
+                <div className='folder-container'>
+                  <div onClick={() => handleOpenFolder(folder)} className="folder">
+                    <FiFolder />
+                    {folder.title}
+                  </div>
+                  <button type="button" onClick={() => handleRemoveFolder(folder.id)}>
+                    <FiTrash size={16}/>
+                  </button>
                 </div>
                 <ul>
                 {folder.isOpen && folder.tasks.map(task => (

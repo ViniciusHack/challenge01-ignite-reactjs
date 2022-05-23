@@ -58,7 +58,8 @@ section.task-list {
         justify-content: space-between;
         align-items: center;
         border-bottom: 1px solid #EBEBEB;
-        padding: 1rem 0;
+        padding: 1rem 0 !important;
+        width: calc(100% - 1rem);
 
         div {
           display: flex;
@@ -143,20 +144,38 @@ section.task-list {
         }
       }
 
-    &:first-of-type {
-      > li + li {
-        padding-top: 2rem;
+      &:first-of-type {
+        > li + li {
+          padding-top: 2rem;
+        }
       }
-    }
         
-      .folder {
+      .folder-container {
         display: flex;
-        gap: 14px;
+        justify-content: space-between;
         align-items: center;
-        cursor: pointer;
-
+        width: 100%;
+        .folder {
+          display: flex;
+          gap: 14px;
+          align-items: center;
+          cursor: pointer;
+    
+        }
         & + ul {
           padding-left: 1rem;
+        }
+
+        button {
+          color: var(--blue);
+          background: none;
+          border: 0;
+          outline: 0;
+          transition: color 0.2s;
+
+          &:hover {
+            color: var(--red);
+          }
         }
       }
     } 
