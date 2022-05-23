@@ -77,21 +77,59 @@ export function TaskList() {
     toast.success("Tarefa criada com sucesso")
   }
 
-  function handleToggleTaskCompletion(id: number) {
+  function handleToggleTaskCompletion(id: number, folderId?: number) {
+
+    if(!folderId) {
+      return setTasks(tasks.map((task) => {
+        if(task.id === id) {
+          task.isComplete? task.isComplete = false : task.isComplete = true
+        }
+        
+        return task
+      }))
+
+    }
     
-    setTasks(tasks.map((task) => {
+    const cloneFolders = [...folders];
+    const folderExists = folders.find(folder => folder.id === folderId);
+    const folderIndex = folders.findIndex(folder => folder.id === folderId);
+    const newTasks = folderExists?.tasks.map(task => {
       if(task.id === id) {
-        task.isComplete? task.isComplete = false : task.isComplete = true
+        task.isComplete ? task.isComplete = false : task.isComplete = true
       }
-      
-      return task
-    }))
+
+      return task;
+    })
+
+    if(newTasks && folderExists) {
+      folderExists.tasks = newTasks;
+    }
+
+    cloneFolders.splice(folderIndex, 1, folderExists!)
+    setFolders(cloneFolders)
+    
   }
 
-  function handleRemoveTask(id: number) {
-    const filteredTasks = tasks.filter(task => task.id !== id)
-    setTasks(filteredTasks)
-    toast.success("Tarefa deletada com sucesso")
+  function handleRemoveTask(id: number, folderId?: number) {
+    if(!folderId) {
+      const filteredTasks = tasks.filter(task => task.id !== id)
+      return setTasks(filteredTasks)
+    }
+
+    const cloneFolders = [...folders];
+    const folderToUpdate = folders.find(folder => folder.id === folderId);
+    const folderToUpdateIndex = folders.findIndex(folder => folder.id === folderId);
+    const newTasks = folderToUpdate?.tasks.filter(task => task.id !== id);
+    if(folderToUpdate && newTasks) {
+      folderToUpdate.tasks = newTasks
+      cloneFolders.splice(folderToUpdateIndex, 1, folderToUpdate);
+      toast.success("Tarefa deletada com sucesso")
+
+      setFolders(cloneFolders)
+    } else {
+      toast.error("Ocorreu um erro ao remover sua tarefa")
+    }
+
   }
 
   return (
@@ -134,14 +172,14 @@ export function TaskList() {
                           type="checkbox"
                           readOnly
                           checked={task.isComplete}
-                          onClick={() => handleToggleTaskCompletion(task.id)}
+                          onClick={() => handleToggleTaskCompletion(task.id, folder.id)}
                         />
                         <span className="checkmark"></span>
                       </label>
                       <p>{task.title}</p>
                     </div>
   
-                  <button type="button" data-testid="remove-task-button" onClick={() => handleRemoveTask(task.id)}>
+                  <button type="button" data-testid="remove-task-button" onClick={() => handleRemoveTask(task.id, folder.id)}>
                     <FiTrash size={16}/>
                   </button>
                 </li>
