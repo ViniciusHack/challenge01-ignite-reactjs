@@ -6,10 +6,10 @@ interface DropdownProps {
   top: string;
   left: string;
   onClose: () => void;
-  folderFunction: () => void;
+  onClickDropdownItem: (type: "folder" | "task") => void;
 }
 
-export const Dropdown: React.FC<DropdownProps> = ({top, left, onClose, folderFunction}) => {
+export const Dropdown: React.FC<DropdownProps> = ({ top, left, onClose, onClickDropdownItem}) => {
 
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -27,11 +27,11 @@ export const Dropdown: React.FC<DropdownProps> = ({top, left, onClose, folderFun
 
   return (
     <div className='dropdown' style={{ left, top }} ref={dropdownRef}>
-      <div onClick={folderFunction}>
+      <div onClick={() => onClickDropdownItem('folder')}>
         <FiFolder />
         Nova pasta
       </div>
-      <div>
+      <div onClick={() => onClickDropdownItem("task")}>
         <FiCheckSquare />
         Nova tarefa
       </div>

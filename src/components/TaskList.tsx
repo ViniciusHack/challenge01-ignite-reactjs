@@ -49,9 +49,10 @@ export function TaskList() {
     setFolders(cloneFolders)
   }
 
-  const onClickFolder = useCallback(() => {
-    setModalType('folder')
+  const onClickDropdownItem = useCallback((type: "folder"| "task") => {
+    setModalType(type)
     setIsModalOpen(true);
+    setIsDropdownOpen(false);
   }, [])
 
   const handleCreateNewFolder = useCallback((name: string) => {
@@ -237,7 +238,7 @@ export function TaskList() {
           </ul>
         </main>
       </section>
-      {isDropdownOpen && <Dropdown folderFunction={onClickFolder} onClose={() => setIsDropdownOpen(false)} left={mousePositions.left} top={mousePositions.top} /> }
+      {isDropdownOpen && <Dropdown onClickDropdownItem={onClickDropdownItem} onClose={() => setIsDropdownOpen(false)} left={mousePositions.left} top={mousePositions.top} /> }
       {isModalOpen && <Modal folders={folders} addFolder={handleCreateNewFolder} addTask={handleCreateNewTask} type={modalType} onClose={() => setIsModalOpen(false)}/> }
     </>
   )
