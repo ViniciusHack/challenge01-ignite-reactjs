@@ -171,7 +171,7 @@ export function TaskList() {
               setModalType('task')
             }}>
               <FiCheckSquare size={16} color="#fff"/>
-              Nova todo
+              Nova tarefa
             </button>
           </div>
         </header>
