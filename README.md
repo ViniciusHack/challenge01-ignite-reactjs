@@ -29,6 +29,9 @@
 <a href="https://to-do-viniciushack.vercel.app/">**to.do**</a> is a "To do" list, it was the first challenge that we created in the <a href="https://www.rocketseat.com.br/ignite">Ignite</a> course.
 
 
+![delete](https://user-images.githubusercontent.com/60555584/171083514-fa731292-a0cf-41af-91e3-c74836aa8f9d.gif)
+
+
 ## 🔨 Features
 - Create a task
 - Check a task
