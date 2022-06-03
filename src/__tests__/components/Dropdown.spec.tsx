@@ -19,6 +19,7 @@ describe("Dropdown component", () => {
 
     expect(screen.getByText("Criação de tarefa")).toBeInTheDocument();
   })
+
   it("should be able to open the folder modal", () => {
 
     const mockOpenModal = jest.fn();
@@ -34,4 +35,5 @@ describe("Dropdown component", () => {
 
     expect(screen.getByText("Criação de pasta")).toBeInTheDocument();
   })
+  
 })
