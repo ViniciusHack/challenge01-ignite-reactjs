@@ -16,7 +16,6 @@ interface ModalProps {
 export const Modal: React.FC<ModalProps> = ({ onClose, type, addTask, addFolder, folders }) => {
   const [name, setName] = useState('');
   const [folderSelectedId, setFolderSelectedId] = useState<number | null>(null);
-  console.log(folderSelectedId)
 
   const modalRef = useRef<HTMLDivElement>(null);
 
