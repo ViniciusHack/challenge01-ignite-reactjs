@@ -5,8 +5,6 @@ import '../styles/tasklist.scss';
 import { Dropdown } from './Dropdown';
 import { Modal } from './Modal';
 
-
-
 interface Task {
   id: number;
   title: string;
